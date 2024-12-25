@@ -1,0 +1,7 @@
+% ghq
+
+# ghq get
+ghq get <user>/<project>
+
+# ghq get by ssh
+ghq get -s <user>/<porject>
