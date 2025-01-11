@@ -1,0 +1,71 @@
+% chezmoi
+
+# Initialize chezmoi with dotfiles from existing directory
+$ chezmoi init
+
+# Initialize chezmoi with SSH and apply immediately
+$ chezmoi init --apply --ssh <repository_url>
+@ repository_url: echo "git@github.com:YOUR_USERNAME/dotfiles.git"
+
+# Add a file or directory to chezmoi
+$ chezmoi add <file_or_directory>
+@ file_or_directory: echo -e "$(find ~ -maxdepth 1 -type f -name ".*")\n$(find ~ -maxdepth 1 -type d -name ".*")" --- --fzf
+
+# Check differences between local files and chezmoi's versions
+$ chezmoi diff
+
+# Apply changes from chezmoi to local files
+$ chezmoi apply
+
+# Show what changes would be made by chezmoi apply
+$ chezmoi apply --dry-run --verbose
+
+# Update dotfiles repository from source
+$ chezmoi update
+
+# Edit a file managed by chezmoi
+$ chezmoi edit <target>
+@ target: chezmoi managed list --- --fzf
+
+# Show the status of tracked files
+$ chezmoi status
+
+# Initialize chezmoi with a remote dotfiles repository
+$ chezmoi init <repository_url>
+@ repository_url: echo "https://github.com/YOUR_USERNAME/dotfiles.git"
+
+# Forget a tracked file
+$ chezmoi forget <target>
+@ target: chezmoi managed list --- --fzf
+
+# Add a template file
+$ chezmoi add --template <file>
+@ file: echo -e "$(find ~ -maxdepth 1 -type f -name ".*")" --- --fzf
+
+# View the computed contents of a file
+$ chezmoi cat <target>
+@ target: chezmoi managed list --- --fzf
+
+# Merge local changes with chezmoi's version
+$ chezmoi merge <target>
+@ target: chezmoi managed list --- --fzf
+
+# Initialize a new repository and push to remote
+; First time setup for new dotfiles repository
+$ chezmoi init && chezmoi cd && git init && git add . && git commit -m "Initial commit" && git branch -M main && git remote add origin <repository_url> && git push -u origin main
+@ repository_url: echo "https://github.com/YOUR_USERNAME/dotfiles.git"
+
+# CD to the chezmoi source directory
+$ chezmoi cd
+
+# Generate shell completion scripts
+$ chezmoi completion <shell>
+@ shell: echo -e "bash\nzsh\nfish"
+
+# Execute a template to see what would be generated
+$ chezmoi execute-template <template_file>
+@ template_file: find ~/.local/share/chezmoi -type f -name "*.tmpl" --- --fzf
+
+# Show help for a command
+$ chezmoi help <command>
+@ command: echo -e "init\nadd\napply\nupdate\nedit\nstatus\ndiff\ncd\ncompletion"
